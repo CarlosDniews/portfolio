@@ -4,11 +4,12 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Início', href: '#hero' },
-  { label: 'Sobre', href: '#about' },
+  { label: 'Home', href: '#hero' },
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Projetos', href: '#projects' },
-  { label: 'Contato', href: '#contact' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export function Navbar() {
@@ -53,7 +54,7 @@ export function Navbar() {
           href="#contact"
           className="hidden md:block btn-primary text-sm !px-5 !py-2"
         >
-          Contato
+          Contact
         </a>
 
         {/* Mobile Toggle */}

@@ -13,14 +13,14 @@ export function Projects() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            Portfólio
+            Portfolio
           </p>
           <h2 className="section-heading">
-            Meus <span className="gradient-text">Projetos</span>
+            My <span className="gradient-text">Projects</span>
           </h2>
           <p className="section-subtext mx-auto mt-4">
-            Uma seleção dos projetos que desenvolvi, demonstrando minhas
-            habilidades e experiência.
+            A selection of projects I&apos;ve built, showcasing my skills and
+            experience across different domains.
           </p>
         </div>
 
@@ -100,7 +100,7 @@ export function Projects() {
                 {project.featured && (
                   <div className="absolute top-3 right-3">
                     <span className="text-[10px] text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full">
-                      Destaque
+                      Featured
                     </span>
                   </div>
                 )}
@@ -114,7 +114,7 @@ export function Projects() {
           <div className="text-center py-16">
             <Folder size={48} className="text-slate-700 mx-auto mb-4" />
             <p className="text-slate-500">
-              Projetos serão adicionados em breve.
+              Projects will be added soon.
             </p>
           </div>
         )}
@@ -128,7 +128,7 @@ export function Projects() {
             className="btn-ghost inline-flex items-center gap-2"
           >
             <Github size={18} />
-            Ver mais no GitHub
+            See more on GitHub
           </a>
         </div>
       </div>

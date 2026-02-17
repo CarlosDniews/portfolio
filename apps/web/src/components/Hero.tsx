@@ -1,6 +1,6 @@
 'use client';
 
-import { Github, Linkedin, Instagram, ChevronDown } from 'lucide-react';
+import { Github, Linkedin, Instagram, ChevronDown, Mail, MapPin } from 'lucide-react';
 
 export function Hero() {
   return (
@@ -13,7 +13,7 @@ export function Hero() {
         <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-8 animate-fade-in">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-sm text-slate-400">
-            Disponível para novos projetos
+            Open to new opportunities
           </span>
         </div>
 
@@ -24,18 +24,24 @@ export function Hero() {
         </h1>
 
         {/* Title */}
-        <p className="text-xl md:text-2xl text-slate-300 mb-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-          Full Stack Developer{' '}
+        <p className="text-xl md:text-2xl text-slate-300 mb-3 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          Software Engineer{' '}
           <span className="text-purple-400">&</span> Tech Lead
+        </p>
+
+        {/* Location */}
+        <p className="text-sm text-slate-500 flex items-center justify-center gap-1.5 mb-6 animate-slide-up" style={{ animationDelay: '0.15s' }}>
+          <MapPin size={14} />
+          São Leopoldo, RS, Brazil
         </p>
 
         {/* Subtitle */}
         <p
-          className="text-base md:text-lg text-slate-500 max-w-xl mx-auto mb-10 animate-slide-up"
+          className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto mb-10 animate-slide-up"
           style={{ animationDelay: '0.2s' }}
         >
-          +7 anos construindo soluções web escaláveis e de alta performance com
-          tecnologias modernas.
+          +7 years building high-performance, scalable solutions for FinTech, ERP & Business Intelligence.
+          Focused on AI integration, DevOps automation, and Cloud architecture.
         </p>
 
         {/* Buttons */}
@@ -44,10 +50,10 @@ export function Hero() {
           style={{ animationDelay: '0.3s' }}
         >
           <a href="#projects" className="btn-primary">
-            Ver Projetos
+            View Projects
           </a>
-          <a href="#about" className="btn-ghost">
-            Sobre Mim
+          <a href="#experience" className="btn-ghost">
+            Experience
           </a>
         </div>
 
@@ -82,6 +88,13 @@ export function Hero() {
             aria-label="Instagram"
           >
             <Instagram size={20} />
+          </a>
+          <a
+            href="mailto:darosa.cdaniel@gmail.com"
+            className="glass rounded-xl p-3 text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300"
+            aria-label="Email"
+          >
+            <Mail size={20} />
           </a>
         </div>
       </div>

@@ -1,15 +1,15 @@
 'use client';
 
 import { GlassCard } from './GlassCard';
-import { Github, Linkedin, Instagram, Mail, Send } from 'lucide-react';
+import { Github, Linkedin, Instagram, Mail, Send, Phone } from 'lucide-react';
 
 const socialLinks = [
   {
-    name: 'GitHub',
-    url: 'https://github.com/CarlosDniews',
-    icon: Github,
-    color: 'hover:text-white hover:bg-white/10',
-    description: '@CarlosDniews',
+    name: 'Email',
+    url: 'mailto:darosa.cdaniel@gmail.com',
+    icon: Mail,
+    color: 'hover:text-amber-400 hover:bg-amber-500/10',
+    description: 'darosa.cdaniel@gmail.com',
   },
   {
     name: 'LinkedIn',
@@ -17,6 +17,13 @@ const socialLinks = [
     icon: Linkedin,
     color: 'hover:text-blue-400 hover:bg-blue-500/10',
     description: 'Carlos da Rosa',
+  },
+  {
+    name: 'GitHub',
+    url: 'https://github.com/CarlosDniews',
+    icon: Github,
+    color: 'hover:text-white hover:bg-white/10',
+    description: '@CarlosDniews',
   },
   {
     name: 'Instagram',
@@ -34,24 +41,24 @@ export function Contact() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            Contato
+            Contact
           </p>
           <h2 className="section-heading">
-            Vamos <span className="gradient-text">Conversar</span>?
+            Let&apos;s <span className="gradient-text">Talk</span>
           </h2>
           <p className="section-subtext mx-auto mt-4">
-            Interessado em trabalhar juntos ou tem alguma dúvida? Entre em
-            contato por qualquer um dos canais abaixo.
+            Interested in working together or have a question? Reach out through
+            any of the channels below.
           </p>
         </div>
 
         {/* Social cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {socialLinks.map((link) => (
             <a
               key={link.name}
               href={link.url}
-              target="_blank"
+              target={link.url.startsWith('mailto:') ? '_self' : '_blank'}
               rel="noopener noreferrer"
             >
               <GlassCard className="p-6 text-center group">
@@ -63,7 +70,7 @@ export function Contact() {
                 <h3 className="font-semibold text-white text-sm mb-1">
                   {link.name}
                 </h3>
-                <p className="text-xs text-slate-500">{link.description}</p>
+                <p className="text-xs text-slate-500 break-all">{link.description}</p>
               </GlassCard>
             </a>
           ))}
@@ -79,21 +86,30 @@ export function Contact() {
             <Send size={28} className="text-purple-400" />
           </div>
           <h3 className="text-2xl font-bold text-white mb-3">
-            Pronto para começar um projeto?
+            Ready to start a project?
           </h3>
           <p className="text-slate-400 mb-8 max-w-md mx-auto">
-            Estou sempre aberto a discutir novas oportunidades, projetos
-            interessantes e parcerias.
+            I&apos;m always open to discussing new opportunities, interesting
+            projects, and partnerships.
           </p>
-          <a
-            href="https://www.linkedin.com/in/carlos-da-rosa-63591a159/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary inline-flex items-center gap-2"
-          >
-            <Mail size={18} />
-            Entrar em Contato
-          </a>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href="mailto:darosa.cdaniel@gmail.com"
+              className="btn-primary inline-flex items-center gap-2"
+            >
+              <Mail size={18} />
+              Send Email
+            </a>
+            <a
+              href="https://www.linkedin.com/in/carlos-da-rosa-63591a159/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost inline-flex items-center gap-2"
+            >
+              <Linkedin size={18} />
+              LinkedIn
+            </a>
+          </div>
         </GlassCard>
       </div>
     </section>

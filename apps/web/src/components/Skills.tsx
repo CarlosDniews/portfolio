@@ -3,39 +3,45 @@
 import { GlassCard } from './GlassCard';
 import { trpc } from '@/lib/trpc';
 
-const skillCategories = [
-  {
-    name: 'Frontend',
+const categoryStyles: Record<string, { color: string; bgColor: string; textColor: string }> = {
+  'Languages': {
     color: 'from-indigo-500 to-purple-500',
     bgColor: 'bg-indigo-500/10',
     textColor: 'text-indigo-400',
-    skills: ['Next.js', 'React', 'Vue.js', 'TailwindCSS', 'TypeScript'],
   },
-  {
-    name: 'Backend',
+  'Frameworks & Libraries': {
     color: 'from-purple-500 to-pink-500',
     bgColor: 'bg-purple-500/10',
     textColor: 'text-purple-400',
-    skills: ['NestJS', 'Node.js', 'Delphi', 'tRPC'],
   },
-  {
-    name: 'Database & ORM',
+  'Cloud & DevOps': {
     color: 'from-cyan-500 to-blue-500',
     bgColor: 'bg-cyan-500/10',
     textColor: 'text-cyan-400',
-    skills: ['MySQL', 'PL/SQL', 'Prisma'],
   },
-  {
-    name: 'DevOps & Tools',
+  'Tools & Concepts': {
     color: 'from-emerald-500 to-teal-500',
     bgColor: 'bg-emerald-500/10',
     textColor: 'text-emerald-400',
-    skills: ['Docker', 'Git', 'Vercel', 'CI/CD'],
   },
+};
+
+const defaultStyleOrder = [
+  { color: 'from-indigo-500 to-purple-500', bgColor: 'bg-indigo-500/10', textColor: 'text-indigo-400' },
+  { color: 'from-purple-500 to-pink-500', bgColor: 'bg-purple-500/10', textColor: 'text-purple-400' },
+  { color: 'from-cyan-500 to-blue-500', bgColor: 'bg-cyan-500/10', textColor: 'text-cyan-400' },
+  { color: 'from-emerald-500 to-teal-500', bgColor: 'bg-emerald-500/10', textColor: 'text-emerald-400' },
 ];
 
 export function Skills() {
   const { data: profile } = trpc.profile.get.useQuery();
+
+  const skillGroups = profile?.skillGroups || [
+    { category: 'Languages', items: ['JavaScript', 'TypeScript', 'Delphi', 'ABAP', 'PL/SQL', 'SQL'] },
+    { category: 'Frameworks & Libraries', items: ['Next.js', 'NestJS', 'Vue.js', 'React', 'Node.js'] },
+    { category: 'Cloud & DevOps', items: ['GitHub Actions', 'CI/CD Pipelines', 'Automated Testing', 'Cloud Architecture', 'Docker'] },
+    { category: 'Tools & Concepts', items: ['AI Integration (LLMs)', 'Business Intelligence', 'UI/UX Design', 'Scrum/Agile', 'Prisma', 'tRPC'] },
+  ];
 
   return (
     <section id="skills" className="py-24 px-6">
@@ -43,47 +49,50 @@ export function Skills() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            Tecnologias
+            Technical Skills
           </p>
           <h2 className="section-heading">
-            Minha <span className="gradient-text">Stack</span>
+            My <span className="gradient-text">Stack</span>
           </h2>
           <p className="section-subtext mx-auto mt-4">
-            Tecnologias e ferramentas que utilizo no dia a dia para criar
-            soluções robustas e escaláveis.
+            Technologies and tools I use daily to build robust, scalable
+            solutions.
           </p>
         </div>
 
-        {/* Skill categories */}
+        {/* Skill categories (dynamic from API) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {skillCategories.map((category, i) => (
-            <GlassCard key={category.name} className="p-6">
-              <div className="flex items-center gap-3 mb-5">
-                <div
-                  className={`w-3 h-3 rounded-full bg-gradient-to-r ${category.color}`}
-                />
-                <h3 className="font-semibold text-white">{category.name}</h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {category.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className={`${category.bgColor} ${category.textColor} text-sm px-3 py-1.5 rounded-lg font-medium transition-all duration-300 hover:scale-105`}
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </GlassCard>
-          ))}
+          {skillGroups.map((group, i) => {
+            const style = categoryStyles[group.category] || defaultStyleOrder[i % defaultStyleOrder.length];
+            return (
+              <GlassCard key={group.category} className="p-6">
+                <div className="flex items-center gap-3 mb-5">
+                  <div
+                    className={`w-3 h-3 rounded-full bg-gradient-to-r ${style.color}`}
+                  />
+                  <h3 className="font-semibold text-white">{group.category}</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {group.items.map((skill) => (
+                    <span
+                      key={skill}
+                      className={`${style.bgColor} ${style.textColor} text-sm px-3 py-1.5 rounded-lg font-medium transition-all duration-300 hover:scale-105`}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </GlassCard>
+            );
+          })}
         </div>
 
-        {/* All skills bar (from API) */}
+        {/* All skills bar */}
         {profile?.skills && (
           <div className="mt-12">
             <GlassCard className="p-6" hover={false}>
               <p className="text-xs font-mono text-slate-500 mb-4 uppercase tracking-wider">
-                Todas as tecnologias
+                All Technologies
               </p>
               <div className="flex flex-wrap gap-2">
                 {profile.skills.map((skill) => (

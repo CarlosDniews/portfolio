@@ -15,8 +15,20 @@ export async function createApp() {
 
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
 
+  const corsOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim())
+    : ['http://localhost:3000'];
+
   app.enableCors({
-    origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, curl, etc.)
+      if (!origin) return callback(null, true);
+      // Allow configured origins
+      if (corsOrigins.some((o) => origin === o || origin.endsWith('.vercel.app'))) {
+        return callback(null, true);
+      }
+      callback(null, false);
+    },
     credentials: true,
   });
 

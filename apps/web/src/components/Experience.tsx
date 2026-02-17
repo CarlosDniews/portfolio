@@ -1,8 +1,7 @@
 'use client';
 
 import { GlassCard } from './GlassCard';
-import { Briefcase, Building2, MapPin, ChevronRight } from 'lucide-react';
-import { trpc } from '@/lib/trpc';
+import { Building2, MapPin, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/providers/LanguageProvider';
 
 const companyColors: Record<string, string> = {
@@ -15,31 +14,8 @@ const companyColors: Record<string, string> = {
 
 export function Experience() {
   const { t } = useLanguage();
-  const { data: profile } = trpc.profile.get.useQuery();
 
-  const experiences = profile?.experience || [
-    {
-      company: 'BOREO Sistemas e Gestão',
-      location: 'Remote/Hybrid',
-      role: 'Tech Lead & Full-Stack Developer',
-      period: 'Aug 2025 – Present',
-      highlights: [
-        'Promoted to Tech Lead in January 2026.',
-        'Leading modernization initiative with NextJS/NestJS.',
-        'Built Cloud infrastructure and DevOps culture from scratch.',
-      ],
-    },
-    {
-      company: 'Nelogica',
-      location: 'Porto Alegre, RS',
-      role: 'Full-Stack Developer',
-      period: 'Sep 2024 – Aug 2025',
-      highlights: [
-        'Developed high-frequency trading solutions for FinTech platform.',
-        'Spearheaded performance optimization reducing latency.',
-      ],
-    },
-  ];
+  const experiences = t.exp.items;
 
   return (
     <section id="experience" className="py-24 px-6">

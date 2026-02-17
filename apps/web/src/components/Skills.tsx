@@ -71,7 +71,7 @@ export function Skills() {
                   <div
                     className={`w-3 h-3 rounded-full bg-gradient-to-r ${style.color}`}
                   />
-                  <h3 className="font-semibold text-white">{group.category}</h3>
+                  <h3 className="font-semibold text-white">{t.skills.categories[group.category] || group.category}</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {group.items.map((skill) => (

@@ -60,8 +60,9 @@ export function Contact() {
             <a
               key={link.name}
               href={link.url}
-              target={link.url.startsWith('mailto:') ? '_self' : '_blank'}
-              rel="noopener noreferrer"
+              target={link.url.startsWith('mailto:') ? undefined : '_blank'}
+              rel={link.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+              className="block cursor-pointer"
             >
               <GlassCard className="p-6 text-center group">
                 <div
@@ -93,10 +94,10 @@ export function Contact() {
           <p className="text-slate-400 mb-8 max-w-md mx-auto">
             {t.contact.ctaDescription}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
             <a
               href="mailto:darosa.cdaniel@gmail.com"
-              className="btn-primary inline-flex items-center gap-2"
+              className="btn-primary inline-flex items-center gap-2 cursor-pointer"
             >
               <Mail size={18} />
               {t.contact.sendEmail}
@@ -105,7 +106,7 @@ export function Contact() {
               href="https://www.linkedin.com/in/carlos-da-rosa-63591a159/"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-ghost inline-flex items-center gap-2"
+              className="btn-ghost inline-flex items-center gap-2 cursor-pointer"
             >
               <Linkedin size={18} />
               LinkedIn

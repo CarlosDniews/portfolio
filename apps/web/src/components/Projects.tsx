@@ -7,7 +7,18 @@ import { useLanguage } from '@/providers/LanguageProvider';
 
 export function Projects() {
   const { t } = useLanguage();
-  const { data: projects, isLoading } = trpc.projects.list.useQuery();
+  const { data: apiProjects, isLoading } = trpc.projects.list.useQuery();
+
+  // Merge API data (technologies, URLs) with translated content
+  const translatedItems = t.projectsSection.items;
+  const projects = apiProjects?.map((p) => {
+    const translated = translatedItems.find((ti) => ti.id === p.id);
+    return {
+      ...p,
+      title: translated?.title ?? p.title,
+      description: translated?.description ?? p.description,
+    };
+  }) ?? null;
 
   return (
     <section id="projects" className="py-24 px-6">
@@ -15,13 +26,13 @@ export function Projects() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            {t.projects.label}
+            {t.projectsSection.label}
           </p>
           <h2 className="section-heading">
-            {t.projects.headingPrefix}<span className="gradient-text">{t.projects.headingSuffix}</span>
+            {t.projectsSection.headingPrefix}<span className="gradient-text">{t.projectsSection.headingSuffix}</span>
           </h2>
           <p className="section-subtext mx-auto mt-4">
-            {t.projects.description}
+            {t.projectsSection.description}
           </p>
         </div>
 
@@ -69,7 +80,7 @@ export function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-slate-500 hover:text-white transition-colors"
-                        aria-label={t.projects.liveSite}
+                        aria-label={t.projectsSection.liveSite}
                       >
                         <ExternalLink size={18} />
                       </a>
@@ -101,7 +112,7 @@ export function Projects() {
                 {project.featured && (
                   <div className="absolute top-3 right-3">
                     <span className="text-[10px] text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full">
-                      {t.projects.featured}
+                      {t.projectsSection.featured}
                     </span>
                   </div>
                 )}
@@ -115,7 +126,7 @@ export function Projects() {
           <div className="text-center py-16">
             <Folder size={48} className="text-slate-700 mx-auto mb-4" />
             <p className="text-slate-500">
-              {t.projects.emptyState}
+              {t.projectsSection.emptyState}
             </p>
           </div>
         )}
@@ -129,7 +140,7 @@ export function Projects() {
             className="btn-ghost inline-flex items-center gap-2"
           >
             <Github size={18} />
-            {t.projects.seeMoreGithub}
+            {t.projectsSection.seeMoreGithub}
           </a>
         </div>
       </div>

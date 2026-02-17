@@ -9,6 +9,9 @@ export function About() {
   const { data: profile } = trpc.profile.get.useQuery();
   const { t } = useLanguage();
 
+  const languages = t.about.languages;
+  const education = t.about.education;
+
   return (
     <section id="about" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
@@ -26,7 +29,7 @@ export function About() {
           {/* Bio Card */}
           <GlassCard className="lg:col-span-3 p-8">
             <p className="text-slate-300 leading-relaxed text-lg">
-              {profile?.bio || t.about.fallbackBio}
+              {t.about.bio}
             </p>
           </GlassCard>
 
@@ -63,69 +66,44 @@ export function About() {
         </div>
 
         {/* Languages */}
-        {profile?.languages && (
-          <div className="mt-8">
-            <GlassCard className="p-6" hover={false}>
-              <div className="flex items-center gap-3 mb-4">
-                <Globe size={20} className="text-purple-400" />
-                <h3 className="font-semibold text-white text-sm uppercase tracking-wider">{t.about.languages}</h3>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                {profile.languages.map((lang) => (
-                  <span
-                    key={lang.language}
-                    className="glass px-4 py-2 rounded-xl text-sm"
-                  >
-                    <span className="text-white font-medium">{lang.language}</span>
-                    <span className="text-slate-500 ml-2">— {lang.level}</span>
-                  </span>
-                ))}
-              </div>
-            </GlassCard>
-          </div>
-        )}
+        <div className="mt-8">
+          <GlassCard className="p-6" hover={false}>
+            <div className="flex items-center gap-3 mb-4">
+              <Globe size={20} className="text-purple-400" />
+              <h3 className="font-semibold text-white text-sm uppercase tracking-wider">{t.about.languagesLabel}</h3>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {languages.map((lang) => (
+                <span
+                  key={lang.language}
+                  className="glass px-4 py-2 rounded-xl text-sm"
+                >
+                  <span className="text-white font-medium">{lang.language}</span>
+                  <span className="text-slate-500 ml-2">— {lang.level}</span>
+                </span>
+              ))}
+            </div>
+          </GlassCard>
+        </div>
 
         {/* Education */}
         <div className="mt-12">
           <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
             <GraduationCap size={24} className="text-purple-400" />
-            {t.about.education}
+            {t.about.educationLabel}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {(
-              profile?.education || [
-                {
-                  degree: 'Specialization in Software Engineering',
-                  institution: 'Uninter',
-                  period: '2024 – Present',
-                  status: 'Em andamento' as const,
-                },
-                {
-                  degree: 'MBA in Business Management',
-                  institution: 'Uninter',
-                  period: '2024 – Present',
-                  status: 'Em andamento' as const,
-                },
-                {
-                  degree: 'Bachelor of Computer Engineering',
-                  institution: 'Unisinos',
-                  period: '2018 – 2023',
-                  status: 'Concluído' as const,
-                },
-              ]
-            ).map((edu, i) => (
+            {education.map((edu, i) => (
               <GlassCard key={i} className="p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1">
                     <h4 className="font-medium text-white text-sm">
                       {edu.degree}
                     </h4>
-                    {edu.institution && (
-                      <p className="text-xs text-slate-500 mt-1">
-                        {edu.institution} • {edu.period}
-                      </p>
-                    )}
-                    {'note' in edu && edu.note && (
+                    <p className="text-xs text-slate-500 mt-1">
+                      {edu.institution} • {edu.period}
+                    </p>
+                    {edu.note && (
                       <p className="text-xs text-purple-400/80 mt-1.5 italic">
                         {edu.note}
                       </p>
@@ -133,12 +111,12 @@ export function About() {
                   </div>
                   <span
                     className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${
-                      edu.status === 'Concluído'
+                      edu.done
                         ? 'bg-emerald-500/10 text-emerald-400'
                         : 'bg-amber-500/10 text-amber-400'
                     }`}
                   >
-                    {edu.status === 'Concluído' ? t.about.completed : t.about.inProgress}
+                    {edu.done ? t.about.completed : t.about.inProgress}
                   </span>
                 </div>
               </GlassCard>

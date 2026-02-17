@@ -2,31 +2,14 @@
 
 import { GlassCard } from './GlassCard';
 import { Trophy, Medal, Calculator } from 'lucide-react';
-import { trpc } from '@/lib/trpc';
 import { useLanguage } from '@/providers/LanguageProvider';
 
 const achievementIcons = [Trophy, Medal, Calculator];
 
 export function Achievements() {
   const { t } = useLanguage();
-  const { data: profile } = trpc.profile.get.useQuery();
 
-  const achievements = profile?.achievements || [
-    {
-      title: '1st Place — Incubating Ideas PUCRS (2017)',
-      description:
-        'Awarded "Best Elevator Pitch," "Best Idea," and "Best Entrepreneur" among 5,000+ participants.',
-    },
-    {
-      title: 'Bronze Medal — Brazilian Mathematical Olympiad (OBMEP)',
-      description:
-        "3rd Place National in one of Brazil's most competitive academic competitions.",
-    },
-    {
-      title: '1st Place — Regional Mathematics Olympiads (4 consecutive years)',
-      description: 'Consecutive champion from 2014 to 2017.',
-    },
-  ];
+  const achievements = t.achievements.items;
 
   return (
     <section id="achievements" className="py-24 px-6">

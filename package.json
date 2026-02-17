@@ -1,0 +1,19 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev -w @portfolio/web",
+    "dev:api": "npm run dev -w @portfolio/api",
+    "build:web": "npm run build -w @portfolio/web",
+    "build:api": "npm run build -w @portfolio/api",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "build": "npm run build:api && npm run build:web"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

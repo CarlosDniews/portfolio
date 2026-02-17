@@ -1,0 +1,95 @@
+'use client';
+
+import { Github, Linkedin, Instagram, ChevronDown } from 'lucide-react';
+
+export function Hero() {
+  return (
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center px-6"
+    >
+      <div className="max-w-4xl mx-auto text-center">
+        {/* Status badge */}
+        <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-8 animate-fade-in">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-sm text-slate-400">
+            Disponível para novos projetos
+          </span>
+        </div>
+
+        {/* Name */}
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 animate-slide-up">
+          <span className="text-white">Carlos </span>
+          <span className="gradient-text">Daniel</span>
+        </h1>
+
+        {/* Title */}
+        <p className="text-xl md:text-2xl text-slate-300 mb-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          Full Stack Developer{' '}
+          <span className="text-purple-400">&</span> Tech Lead
+        </p>
+
+        {/* Subtitle */}
+        <p
+          className="text-base md:text-lg text-slate-500 max-w-xl mx-auto mb-10 animate-slide-up"
+          style={{ animationDelay: '0.2s' }}
+        >
+          +7 anos construindo soluções web escaláveis e de alta performance com
+          tecnologias modernas.
+        </p>
+
+        {/* Buttons */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-slide-up"
+          style={{ animationDelay: '0.3s' }}
+        >
+          <a href="#projects" className="btn-primary">
+            Ver Projetos
+          </a>
+          <a href="#about" className="btn-ghost">
+            Sobre Mim
+          </a>
+        </div>
+
+        {/* Social Links */}
+        <div
+          className="flex items-center justify-center gap-4 animate-slide-up"
+          style={{ animationDelay: '0.4s' }}
+        >
+          <a
+            href="https://github.com/CarlosDniews"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glass rounded-xl p-3 text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300"
+            aria-label="GitHub"
+          >
+            <Github size={20} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/carlos-da-rosa-63591a159/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glass rounded-xl p-3 text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300"
+            aria-label="LinkedIn"
+          >
+            <Linkedin size={20} />
+          </a>
+          <a
+            href="https://www.instagram.com/carlosdaniel_rosa/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glass rounded-xl p-3 text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300"
+            aria-label="Instagram"
+          >
+            <Instagram size={20} />
+          </a>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <ChevronDown size={24} className="text-slate-600" />
+      </div>
+    </section>
+  );
+}

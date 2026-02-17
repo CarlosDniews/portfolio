@@ -2,6 +2,7 @@
 
 import { GlassCard } from './GlassCard';
 import { trpc } from '@/lib/trpc';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 const categoryStyles: Record<string, { color: string; bgColor: string; textColor: string }> = {
   'Languages': {
@@ -34,6 +35,7 @@ const defaultStyleOrder = [
 ];
 
 export function Skills() {
+  const { t } = useLanguage();
   const { data: profile } = trpc.profile.get.useQuery();
 
   const skillGroups = profile?.skillGroups || [
@@ -49,14 +51,13 @@ export function Skills() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            Technical Skills
+            {t.skills.label}
           </p>
           <h2 className="section-heading">
-            My <span className="gradient-text">Stack</span>
+            {t.skills.headingPrefix}<span className="gradient-text">{t.skills.headingSuffix}</span>
           </h2>
           <p className="section-subtext mx-auto mt-4">
-            Technologies and tools I use daily to build robust, scalable
-            solutions.
+            {t.skills.description}
           </p>
         </div>
 
@@ -92,7 +93,7 @@ export function Skills() {
           <div className="mt-12">
             <GlassCard className="p-6" hover={false}>
               <p className="text-xs font-mono text-slate-500 mb-4 uppercase tracking-wider">
-                All Technologies
+                {t.skills.allTech}
               </p>
               <div className="flex flex-wrap gap-2">
                 {profile.skills.map((skill) => (

@@ -3,6 +3,7 @@
 import { GlassCard } from './GlassCard';
 import { Briefcase, Building2, MapPin, ChevronRight } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 const companyColors: Record<string, string> = {
   'BOREO Sistemas e Gestão': 'from-purple-500 to-indigo-500',
@@ -13,6 +14,7 @@ const companyColors: Record<string, string> = {
 };
 
 export function Experience() {
+  const { t } = useLanguage();
   const { data: profile } = trpc.profile.get.useQuery();
 
   const experiences = profile?.experience || [
@@ -45,14 +47,13 @@ export function Experience() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            Career
+            {t.exp.label}
           </p>
           <h2 className="section-heading">
-            Professional <span className="gradient-text">Experience</span>
+            {t.exp.headingPrefix}<span className="gradient-text">{t.exp.headingSuffix}</span>
           </h2>
           <p className="section-subtext mx-auto mt-4">
-            A track record of building and leading across FinTech, ERP, BI, and
-            SaaS industries.
+            {t.exp.description}
           </p>
         </div>
 

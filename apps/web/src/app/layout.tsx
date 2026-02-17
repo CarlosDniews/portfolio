@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { TRPCProvider } from '@/providers/TRPCProvider';
+import { LanguageProvider } from '@/providers/LanguageProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Carlos Daniel | Full Stack Developer & Tech Lead',
   description:
-    'Portfólio de Carlos Daniel Alves da Rosa — Desenvolvedor Full Stack e Tech Lead com +7 anos de experiência em Next.js, NestJS, Vue.js, Node.js e mais.',
+    'Portfolio of Carlos Daniel Alves da Rosa — Full Stack Developer and Tech Lead with 7+ years of experience in Next.js, NestJS, Vue.js, Node.js and more.',
   keywords: [
     'Carlos Daniel',
     'Full Stack Developer',
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Carlos Daniel | Full Stack Developer & Tech Lead',
     description:
-      'Portfólio e carta de apresentação de Carlos Daniel Alves da Rosa.',
+      'Portfolio of Carlos Daniel Alves da Rosa — Full Stack Developer & Tech Lead.',
     type: 'website',
   },
 };
@@ -30,9 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth">
       <body className="antialiased">
-        <TRPCProvider>{children}</TRPCProvider>
+        <TRPCProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </TRPCProvider>
       </body>
     </html>
   );

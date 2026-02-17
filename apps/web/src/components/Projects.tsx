@@ -3,8 +3,10 @@
 import { GlassCard } from './GlassCard';
 import { ExternalLink, Github, Folder } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 export function Projects() {
+  const { t } = useLanguage();
   const { data: projects, isLoading } = trpc.projects.list.useQuery();
 
   return (
@@ -13,14 +15,13 @@ export function Projects() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            Portfolio
+            {t.projects.label}
           </p>
           <h2 className="section-heading">
-            My <span className="gradient-text">Projects</span>
+            {t.projects.headingPrefix}<span className="gradient-text">{t.projects.headingSuffix}</span>
           </h2>
           <p className="section-subtext mx-auto mt-4">
-            A selection of projects I&apos;ve built, showcasing my skills and
-            experience across different domains.
+            {t.projects.description}
           </p>
         </div>
 
@@ -68,7 +69,7 @@ export function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-slate-500 hover:text-white transition-colors"
-                        aria-label="Live site"
+                        aria-label={t.projects.liveSite}
                       >
                         <ExternalLink size={18} />
                       </a>
@@ -100,7 +101,7 @@ export function Projects() {
                 {project.featured && (
                   <div className="absolute top-3 right-3">
                     <span className="text-[10px] text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full">
-                      Featured
+                      {t.projects.featured}
                     </span>
                   </div>
                 )}
@@ -114,7 +115,7 @@ export function Projects() {
           <div className="text-center py-16">
             <Folder size={48} className="text-slate-700 mx-auto mb-4" />
             <p className="text-slate-500">
-              Projects will be added soon.
+              {t.projects.emptyState}
             </p>
           </div>
         )}
@@ -128,7 +129,7 @@ export function Projects() {
             className="btn-ghost inline-flex items-center gap-2"
           >
             <Github size={18} />
-            See more on GitHub
+            {t.projects.seeMoreGithub}
           </a>
         </div>
       </div>

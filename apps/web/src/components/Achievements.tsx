@@ -3,10 +3,12 @@
 import { GlassCard } from './GlassCard';
 import { Trophy, Medal, Calculator } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 const achievementIcons = [Trophy, Medal, Calculator];
 
 export function Achievements() {
+  const { t } = useLanguage();
   const { data: profile } = trpc.profile.get.useQuery();
 
   const achievements = profile?.achievements || [
@@ -32,10 +34,10 @@ export function Achievements() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            Recognition
+            {t.achievements.label}
           </p>
           <h2 className="section-heading">
-            Awards & <span className="gradient-text">Achievements</span>
+            {t.achievements.headingPrefix}<span className="gradient-text">{t.achievements.headingSuffix}</span>
           </h2>
         </div>
 

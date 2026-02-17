@@ -3,9 +3,11 @@
 import { GlassCard } from './GlassCard';
 import { GraduationCap, Briefcase, Code2, Globe, Award } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 export function About() {
   const { data: profile } = trpc.profile.get.useQuery();
+  const { t } = useLanguage();
 
   return (
     <section id="about" className="py-24 px-6">
@@ -13,10 +15,10 @@ export function About() {
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            About
+            {t.about.label}
           </p>
           <h2 className="section-heading">
-            Who is <span className="gradient-text">Carlos Daniel</span>?
+            {t.about.headingPrefix}<span className="gradient-text">Carlos Daniel</span>{t.about.headingSuffix}
           </h2>
         </div>
 
@@ -24,8 +26,7 @@ export function About() {
           {/* Bio Card */}
           <GlassCard className="lg:col-span-3 p-8">
             <p className="text-slate-300 leading-relaxed text-lg">
-              {profile?.bio ||
-                'Result-oriented Software Engineer and Tech Lead with over 7 years of experience in high-performance software development. Proven track record in architecting scalable solutions for FinTech, ERP, and Business Intelligence sectors.'}
+              {profile?.bio || t.about.fallbackBio}
             </p>
           </GlassCard>
 
@@ -38,7 +39,7 @@ export function About() {
               <p className="text-3xl font-bold text-white">
                 {profile?.yearsExperience || 7}+
               </p>
-              <p className="text-sm text-slate-500 mt-1">Years of Experience</p>
+              <p className="text-sm text-slate-500 mt-1">{t.about.yearsExp}</p>
             </GlassCard>
 
             <GlassCard className="p-6 text-center" glow>
@@ -46,7 +47,7 @@ export function About() {
                 <Award size={22} className="text-purple-400" />
               </div>
               <p className="text-3xl font-bold text-white">5+</p>
-              <p className="text-sm text-slate-500 mt-1">Companies</p>
+              <p className="text-sm text-slate-500 mt-1">{t.about.companies}</p>
             </GlassCard>
 
             <GlassCard className="p-6 text-center col-span-2" glow>
@@ -55,7 +56,7 @@ export function About() {
               </div>
               <p className="text-3xl font-bold text-white">Tech Lead</p>
               <p className="text-sm text-slate-500 mt-1">
-                Software Engineer & Architect
+                {t.about.engineerArchitect}
               </p>
             </GlassCard>
           </div>
@@ -67,7 +68,7 @@ export function About() {
             <GlassCard className="p-6" hover={false}>
               <div className="flex items-center gap-3 mb-4">
                 <Globe size={20} className="text-purple-400" />
-                <h3 className="font-semibold text-white text-sm uppercase tracking-wider">Languages</h3>
+                <h3 className="font-semibold text-white text-sm uppercase tracking-wider">{t.about.languages}</h3>
               </div>
               <div className="flex flex-wrap gap-3">
                 {profile.languages.map((lang) => (
@@ -88,7 +89,7 @@ export function About() {
         <div className="mt-12">
           <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-3">
             <GraduationCap size={24} className="text-purple-400" />
-            Education
+            {t.about.education}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {(
@@ -137,7 +138,7 @@ export function About() {
                         : 'bg-amber-500/10 text-amber-400'
                     }`}
                   >
-                    {edu.status === 'Concluído' ? 'Completed' : 'In Progress'}
+                    {edu.status === 'Concluído' ? t.about.completed : t.about.inProgress}
                   </span>
                 </div>
               </GlassCard>

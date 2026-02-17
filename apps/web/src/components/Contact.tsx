@@ -2,6 +2,7 @@
 
 import { GlassCard } from './GlassCard';
 import { Github, Linkedin, Instagram, Mail, Send, Phone } from 'lucide-react';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 const socialLinks = [
   {
@@ -35,20 +36,21 @@ const socialLinks = [
 ];
 
 export function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="py-24 px-6">
       <div className="max-w-4xl mx-auto">
         {/* Section header */}
         <div className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
-            Contact
+            {t.contact.label}
           </p>
           <h2 className="section-heading">
-            Let&apos;s <span className="gradient-text">Talk</span>
+            {t.contact.headingPrefix}<span className="gradient-text">{t.contact.headingSuffix}</span>
           </h2>
           <p className="section-subtext mx-auto mt-4">
-            Interested in working together or have a question? Reach out through
-            any of the channels below.
+            {t.contact.description}
           </p>
         </div>
 
@@ -86,11 +88,10 @@ export function Contact() {
             <Send size={28} className="text-purple-400" />
           </div>
           <h3 className="text-2xl font-bold text-white mb-3">
-            Ready to start a project?
+            {t.contact.ctaTitle}
           </h3>
           <p className="text-slate-400 mb-8 max-w-md mx-auto">
-            I&apos;m always open to discussing new opportunities, interesting
-            projects, and partnerships.
+            {t.contact.ctaDescription}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
@@ -98,7 +99,7 @@ export function Contact() {
               className="btn-primary inline-flex items-center gap-2"
             >
               <Mail size={18} />
-              Send Email
+              {t.contact.sendEmail}
             </a>
             <a
               href="https://www.linkedin.com/in/carlos-da-rosa-63591a159/"

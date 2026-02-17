@@ -1,8 +1,11 @@
 'use client';
 
 import { Github, Linkedin, Instagram, ChevronDown, Mail, MapPin } from 'lucide-react';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="hero"
@@ -13,7 +16,7 @@ export function Hero() {
         <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-8 animate-fade-in">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="text-sm text-slate-400">
-            Open to new opportunities
+            {t.hero.badge}
           </span>
         </div>
 
@@ -40,8 +43,7 @@ export function Hero() {
           className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto mb-10 animate-slide-up"
           style={{ animationDelay: '0.2s' }}
         >
-          +7 years building high-performance, scalable solutions for FinTech, ERP & Business Intelligence.
-          Focused on AI integration, DevOps automation, and Cloud architecture.
+          {t.hero.subtitle}
         </p>
 
         {/* Buttons */}
@@ -50,10 +52,10 @@ export function Hero() {
           style={{ animationDelay: '0.3s' }}
         >
           <a href="#projects" className="btn-primary">
-            View Projects
+            {t.hero.viewProjects}
           </a>
           <a href="#experience" className="btn-ghost">
-            Experience
+            {t.hero.experience}
           </a>
         </div>
 

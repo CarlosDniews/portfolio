@@ -1,6 +1,10 @@
+'use client';
+
 import { Heart } from 'lucide-react';
+import { useLanguage } from '@/providers/LanguageProvider';
 
 export function Footer() {
+  const { t } = useLanguage();
   const year = new Date().getFullYear();
 
   return (
@@ -10,8 +14,7 @@ export function Footer() {
           © {year} Carlos Daniel Alves da Rosa
         </p>
         <p className="text-sm text-slate-600 flex items-center gap-1">
-          Feito com <Heart size={14} className="text-purple-500/60" /> usando
-          Next.js, NestJS & tRPC
+          {t.footer.builtWith} <Heart size={14} className="text-purple-500/60" /> {t.footer.using}
         </p>
       </div>
     </footer>

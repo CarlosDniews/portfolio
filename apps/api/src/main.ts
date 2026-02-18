@@ -15,22 +15,24 @@ export async function createApp() {
 
   const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
 
-  const corsOrigins = process.env.CORS_ORIGIN
-    ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim())
-    : ['http://localhost:3000'];
+  // In serverless (Vercel), CORS is handled in api/index.js to avoid duplicate headers.
+  // Only enable NestJS CORS for local development.
+  if (!process.env.VERCEL) {
+    const corsOrigins = process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim())
+      : ['http://localhost:3000', 'http://localhost:3001'];
 
-  app.enableCors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (mobile apps, curl, etc.)
-      if (!origin) return callback(null, true);
-      // Allow configured origins
-      if (corsOrigins.some((o) => origin === o || origin.endsWith('.vercel.app'))) {
-        return callback(null, true);
-      }
-      callback(null, false);
-    },
-    credentials: true,
-  });
+    app.enableCors({
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+        if (corsOrigins.some((o) => origin === o) || origin.endsWith('.vercel.app')) {
+          return callback(null, true);
+        }
+        callback(null, false);
+      },
+      credentials: true,
+    });
+  }
 
   app.use(helmet());
 

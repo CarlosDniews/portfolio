@@ -356,7 +356,7 @@ const pt: Translations = {
   hero: {
     badge: 'Aberto a novas oportunidades',
     subtitle:
-      '+7 anos construindo solu\u00e7\u00f5es escal\u00e1veis e de alta performance para FinTech, ERP e Business Intelligence. Foco em integra\u00e7\u00e3o de IA, automa\u00e7\u00e3o DevOps e arquitetura Cloud.',
+      '+7 anos construindo solu\u00e7\u00f5es escal\u00e1veis e de alta performance para Aplicações Web, FinTech, ERP e Business Intelligence. Foco em integra\u00e7\u00e3o de IA, automa\u00e7\u00e3o DevOps e arquitetura Cloud.',
     viewProjects: 'Ver Projetos',
     experience: 'Experi\u00eancia',
   },
@@ -364,7 +364,7 @@ const pt: Translations = {
     label: 'Sobre',
     headingPrefix: 'Quem \u00e9 ',
     headingSuffix: '?',
-    bio: 'Engenheiro de Software e Tech Lead orientado a resultados, com mais de 7 anos de experi\u00eancia em desenvolvimento de software de alta performance. Hist\u00f3rico comprovado em arquitetar solu\u00e7\u00f5es escal\u00e1veis para os setores de FinTech, ERP e Business Intelligence. Especialista em modernizar sistemas legados e liderar equipes t\u00e9cnicas na transi\u00e7\u00e3o para stacks modernas (NextJS, NestJS, TypeScript). Atualmente focado em integra\u00e7\u00e3o de IA, automa\u00e7\u00e3o DevOps e arquitetura Cloud.',
+    bio: 'Engenheiro de Software e Tech Lead orientado a resultados, com mais de 7 anos de experi\u00eancia em desenvolvimento de software de alta performance. Hist\u00f3rico comprovado em arquitetar solu\u00e7\u00f5es escal\u00e1veis para os setores de Desenvolvimento Web, FinTechs, ERP e Business Intelligence. Especialista em modernizar sistemas legados e liderar equipes t\u00e9cnicas na transi\u00e7\u00e3o para stacks modernas (NextJS, NestJS, TypeScript). Atualmente focado em integra\u00e7\u00e3o de IA, automa\u00e7\u00e3o DevOps e arquitetura Cloud.',
     yearsExp: 'Anos de Experi\u00eancia',
     companies: 'Empresas',
     engineerArchitect: 'Engenheiro de Software & Arquiteto',

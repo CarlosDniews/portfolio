@@ -3,6 +3,8 @@
 import { GlassCard } from './GlassCard';
 import { Building2, MapPin, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/providers/LanguageProvider';
+import { AnimatedSection, AnimatedText } from './ui/animated-section';
+import { motion } from 'framer-motion';
 
 const companyColors: Record<string, string> = {
   'BOREO Sistemas e Gestão': 'from-purple-500 to-indigo-500',
@@ -21,17 +23,19 @@ export function Experience() {
     <section id="experience" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
             {t.exp.label}
           </p>
-          <h2 className="section-heading">
-            {t.exp.headingPrefix}<span className="gradient-text">{t.exp.headingSuffix}</span>
-          </h2>
+          <AnimatedText>
+            <h2 className="section-heading">
+              {t.exp.headingPrefix}<span className="gradient-text">{t.exp.headingSuffix}</span>
+            </h2>
+          </AnimatedText>
           <p className="section-subtext mx-auto mt-4">
             {t.exp.description}
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Timeline */}
         <div className="relative">
@@ -44,15 +48,25 @@ export function Experience() {
               const gradientColor = companyColors[exp.company] || 'from-purple-500 to-indigo-500';
 
               return (
-                <div
+                <motion.div
                   key={i}
+                  initial={{ opacity: 0, x: isLeft ? -60 : 60 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: '-50px' }}
+                  transition={{ duration: 0.7, delay: i * 0.1, ease: 'easeOut' }}
                   className={`relative md:flex md:items-start ${
                     isLeft ? 'md:flex-row' : 'md:flex-row-reverse'
                   }`}
                 >
                   {/* Timeline dot */}
                   <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 -translate-x-1/2 top-6 z-10 hidden md:block">
-                    <div className={`w-4 h-4 rounded-full bg-gradient-to-r ${gradientColor} ring-4 ring-[#070b24]`} />
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: i * 0.1 + 0.3, type: 'spring' }}
+                      className={`w-4 h-4 rounded-full bg-gradient-to-r ${gradientColor} ring-4 ring-[#070b24]`}
+                    />
                   </div>
 
                   {/* Content */}
@@ -99,7 +113,7 @@ export function Experience() {
                       </ul>
                     </GlassCard>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>

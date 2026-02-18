@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 import { useLanguage } from '@/providers/LanguageProvider';
 import { Locale, localeNames, localeFlags } from '@/lib/i18n';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type NavKey = 'home' | 'about' | 'experience' | 'skills' | 'projects' | 'contact';
 
@@ -43,7 +44,10 @@ export function Navbar() {
   }, []);
 
   return (
-    <nav
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled ? 'glass-strong shadow-lg shadow-black/20 py-3' : 'py-5'
       }`}
@@ -82,7 +86,12 @@ export function Navbar() {
               <ChevronDown size={14} className={`transition-transform ${langOpen ? 'rotate-180' : ''}`} />
             </button>
             {langOpen && (
-              <div className="absolute right-0 mt-2 glass-strong rounded-xl py-2 min-w-[160px] shadow-xl shadow-black/30 animate-fade-in">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.15 }}
+                className="absolute right-0 mt-2 glass-strong rounded-xl py-2 min-w-[160px] shadow-xl shadow-black/30"
+              >
                 {locales.map((l) => (
                   <button
                     key={l}
@@ -97,7 +106,7 @@ export function Navbar() {
                     <span>{localeNames[l]}</span>
                   </button>
                 ))}
-              </div>
+              </motion.div>
             )}
           </div>
 
@@ -121,46 +130,54 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="md:hidden glass-strong mt-2 mx-4 rounded-2xl p-6 animate-fade-in">
-          <ul className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, y: -10 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -10 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="md:hidden glass-strong mt-2 mx-4 rounded-2xl p-6 overflow-hidden"
+          >
+            <ul className="flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="text-slate-300 hover:text-white block py-2 transition-colors"
+                  >
+                    {t.nav[link.key]}
+                  </a>
+                </li>
+              ))}
+              {/* Mobile language selector */}
+              <li className="flex items-center gap-2 py-2 flex-wrap">
+                {locales.map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => { setLocale(l); }}
+                    className={`glass rounded-lg px-3 py-1.5 text-sm transition-colors ${
+                      l === locale ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    {localeFlags[l]} {localeNames[l]}
+                  </button>
+                ))}
+              </li>
+              <li>
                 <a
-                  href={link.href}
+                  href="#contact"
                   onClick={() => setMobileOpen(false)}
-                  className="text-slate-300 hover:text-white block py-2 transition-colors"
+                  className="btn-primary inline-block text-center text-sm mt-2"
                 >
-                  {t.nav[link.key]}
+                  {t.nav.contact}
                 </a>
               </li>
-            ))}
-            {/* Mobile language selector */}
-            <li className="flex items-center gap-2 py-2 flex-wrap">
-              {locales.map((l) => (
-                <button
-                  key={l}
-                  onClick={() => { setLocale(l); }}
-                  className={`glass rounded-lg px-3 py-1.5 text-sm transition-colors ${
-                    l === locale ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  {localeFlags[l]} {localeNames[l]}
-                </button>
-              ))}
-            </li>
-            <li>
-              <a
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                className="btn-primary inline-block text-center text-sm mt-2"
-              >
-                {t.nav.contact}
-              </a>
-            </li>
-          </ul>
-        </div>
-      )}
-    </nav>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 }

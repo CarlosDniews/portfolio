@@ -3,6 +3,7 @@
 import { GlassCard } from './GlassCard';
 import { trpc } from '@/lib/trpc';
 import { useLanguage } from '@/providers/LanguageProvider';
+import { AnimatedSection, AnimatedText, StaggeredContainer, StaggeredItem } from './ui/animated-section';
 
 const categoryStyles: Record<string, { color: string; bgColor: string; textColor: string }> = {
   'Languages': {
@@ -49,48 +50,52 @@ export function Skills() {
     <section id="skills" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
             {t.skills.label}
           </p>
-          <h2 className="section-heading">
-            {t.skills.headingPrefix}<span className="gradient-text">{t.skills.headingSuffix}</span>
-          </h2>
+          <AnimatedText>
+            <h2 className="section-heading">
+              {t.skills.headingPrefix}<span className="gradient-text">{t.skills.headingSuffix}</span>
+            </h2>
+          </AnimatedText>
           <p className="section-subtext mx-auto mt-4">
             {t.skills.description}
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Skill categories (dynamic from API) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <StaggeredContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {skillGroups.map((group, i) => {
             const style = categoryStyles[group.category] || defaultStyleOrder[i % defaultStyleOrder.length];
             return (
-              <GlassCard key={group.category} className="p-6">
-                <div className="flex items-center gap-3 mb-5">
-                  <div
-                    className={`w-3 h-3 rounded-full bg-gradient-to-r ${style.color}`}
-                  />
-                  <h3 className="font-semibold text-white">{t.skills.categories[group.category] || group.category}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.items.map((skill) => (
-                    <span
-                      key={skill}
-                      className={`${style.bgColor} ${style.textColor} text-sm px-3 py-1.5 rounded-lg font-medium transition-all duration-300 hover:scale-105`}
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </GlassCard>
+              <StaggeredItem key={group.category}>
+                <GlassCard className="p-6 h-full">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div
+                      className={`w-3 h-3 rounded-full bg-gradient-to-r ${style.color}`}
+                    />
+                    <h3 className="font-semibold text-white">{t.skills.categories[group.category] || group.category}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {group.items.map((skill) => (
+                      <span
+                        key={skill}
+                        className={`${style.bgColor} ${style.textColor} text-sm px-3 py-1.5 rounded-lg font-medium transition-all duration-300 hover:scale-105`}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </GlassCard>
+              </StaggeredItem>
             );
           })}
-        </div>
+        </StaggeredContainer>
 
         {/* All skills bar */}
         {profile?.skills && (
-          <div className="mt-12">
+          <AnimatedSection className="mt-12" delay={0.4}>
             <GlassCard className="p-6" hover={false}>
               <p className="text-xs font-mono text-slate-500 mb-4 uppercase tracking-wider">
                 {t.skills.allTech}
@@ -106,7 +111,7 @@ export function Skills() {
                 ))}
               </div>
             </GlassCard>
-          </div>
+          </AnimatedSection>
         )}
       </div>
     </section>

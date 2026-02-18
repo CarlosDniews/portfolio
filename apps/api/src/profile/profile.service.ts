@@ -56,7 +56,7 @@ export class ProfileService {
       name: 'Carlos Daniel Alves da Rosa',
       title: 'Software Engineer & Tech Lead',
       location: 'São Leopoldo, RS, Brazil',
-      bio: 'Result-oriented Software Engineer and Tech Lead with over 7 years of experience in high-performance software development. Proven track record in architecting scalable solutions for FinTech, ERP, and Business Intelligence sectors. Expert in modernizing legacy systems and leading technical teams through the transition to modern stacks (NextJS, NestJS, TypeScript). Currently focused on AI integration, DevOps automation, and Cloud architecture.',
+      bio: 'Result-oriented Software Engineer and Tech Lead with over 7 years of experience in high-performance software development. Proven track record in architecting scalable solutions for Web Applications, FinTech, ERP, and Business Intelligence sectors. Expert in modernizing legacy systems and leading technical teams through the transition to modern stacks (NextJS, NestJS, TypeScript). Currently focused on AI integration, DevOps automation, and Cloud architecture.',
       yearsExperience: 7,
       skills: [
         'JavaScript',

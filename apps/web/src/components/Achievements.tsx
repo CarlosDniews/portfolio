@@ -3,6 +3,8 @@
 import { GlassCard } from './GlassCard';
 import { Trophy, Medal, Calculator } from 'lucide-react';
 import { useLanguage } from '@/providers/LanguageProvider';
+import { AnimatedSection, AnimatedText, StaggeredContainer, StaggeredItem } from './ui/animated-section';
+import { Meteors } from './ui/meteors';
 
 const achievementIcons = [Trophy, Medal, Calculator];
 
@@ -15,16 +17,18 @@ export function Achievements() {
     <section id="achievements" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
             {t.achievements.label}
           </p>
-          <h2 className="section-heading">
-            {t.achievements.headingPrefix}<span className="gradient-text">{t.achievements.headingSuffix}</span>
-          </h2>
-        </div>
+          <AnimatedText>
+            <h2 className="section-heading">
+              {t.achievements.headingPrefix}<span className="gradient-text">{t.achievements.headingSuffix}</span>
+            </h2>
+          </AnimatedText>
+        </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StaggeredContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {achievements.map((achievement, i) => {
             const Icon = achievementIcons[i % achievementIcons.length];
             const colors = [
@@ -34,31 +38,37 @@ export function Achievements() {
             ][i % 3];
 
             return (
-              <GlassCard
-                key={i}
-                className={`p-6 text-center relative overflow-hidden`}
-                glow
-              >
-                {/* Icon */}
-                <div
-                  className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${colors.bg} mb-5`}
-                >
-                  <Icon size={28} className={colors.icon} />
+              <StaggeredItem key={i}>
+                <div className="relative overflow-hidden rounded-2xl h-full">
+                  <GlassCard
+                    className="p-6 text-center relative overflow-hidden h-full"
+                    glow
+                  >
+                    {/* Meteor effect */}
+                    <Meteors number={8} />
+
+                    {/* Icon */}
+                    <div
+                      className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl ${colors.bg} mb-5 relative z-10`}
+                    >
+                      <Icon size={28} className={colors.icon} />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-bold text-white text-sm mb-2 leading-snug relative z-10">
+                      {achievement.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm text-slate-400 leading-relaxed relative z-10">
+                      {achievement.description}
+                    </p>
+                  </GlassCard>
                 </div>
-
-                {/* Title */}
-                <h3 className="font-bold text-white text-sm mb-2 leading-snug">
-                  {achievement.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  {achievement.description}
-                </p>
-              </GlassCard>
+              </StaggeredItem>
             );
           })}
-        </div>
+        </StaggeredContainer>
       </div>
     </section>
   );

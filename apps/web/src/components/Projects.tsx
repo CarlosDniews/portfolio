@@ -4,6 +4,7 @@ import { GlassCard } from './GlassCard';
 import { ExternalLink, Github, Folder } from 'lucide-react';
 import { trpc } from '@/lib/trpc';
 import { useLanguage } from '@/providers/LanguageProvider';
+import { AnimatedSection, AnimatedText, StaggeredContainer, StaggeredItem } from './ui/animated-section';
 
 export function Projects() {
   const { t } = useLanguage();
@@ -24,17 +25,19 @@ export function Projects() {
     <section id="projects" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <p className="text-sm font-mono text-purple-400 mb-2 tracking-wider uppercase">
             {t.projectsSection.label}
           </p>
-          <h2 className="section-heading">
-            {t.projectsSection.headingPrefix}<span className="gradient-text">{t.projectsSection.headingSuffix}</span>
-          </h2>
+          <AnimatedText>
+            <h2 className="section-heading">
+              {t.projectsSection.headingPrefix}<span className="gradient-text">{t.projectsSection.headingSuffix}</span>
+            </h2>
+          </AnimatedText>
           <p className="section-subtext mx-auto mt-4">
             {t.projectsSection.description}
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Loading state */}
         {isLoading && (
@@ -54,71 +57,73 @@ export function Projects() {
 
         {/* Projects grid */}
         {projects && projects.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggeredContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project) => (
-              <GlassCard key={project.id} className="p-6 flex flex-col">
-                {/* Project icon */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center">
-                    <Folder size={22} className="text-purple-400" />
+              <StaggeredItem key={project.id}>
+                <GlassCard className="p-6 flex flex-col h-full">
+                  {/* Project icon */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center">
+                      <Folder size={22} className="text-purple-400" />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-slate-500 hover:text-white transition-colors"
+                          aria-label="GitHub"
+                        >
+                          <Github size={18} />
+                        </a>
+                      )}
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-slate-500 hover:text-white transition-colors"
+                          aria-label={t.projectsSection.liveSite}
+                        >
+                          <ExternalLink size={18} />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-slate-500 hover:text-white transition-colors"
-                        aria-label="GitHub"
+
+                  {/* Project info */}
+                  <h3 className="text-lg font-semibold text-white mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-sm text-slate-400 mb-4 flex-1">
+                    {project.description}
+                  </p>
+
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs text-purple-300/70 bg-purple-500/10 px-2 py-1 rounded-md"
                       >
-                        <Github size={18} />
-                      </a>
-                    )}
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-slate-500 hover:text-white transition-colors"
-                        aria-label={t.projectsSection.liveSite}
-                      >
-                        <ExternalLink size={18} />
-                      </a>
-                    )}
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-                </div>
 
-                {/* Project info */}
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-slate-400 mb-4 flex-1">
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-xs text-purple-300/70 bg-purple-500/10 px-2 py-1 rounded-md"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Featured indicator */}
-                {project.featured && (
-                  <div className="absolute top-3 right-3">
-                    <span className="text-[10px] text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full">
-                      {t.projectsSection.featured}
-                    </span>
-                  </div>
-                )}
-              </GlassCard>
+                  {/* Featured indicator */}
+                  {project.featured && (
+                    <div className="absolute top-3 right-3">
+                      <span className="text-[10px] text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-full">
+                        {t.projectsSection.featured}
+                      </span>
+                    </div>
+                  )}
+                </GlassCard>
+              </StaggeredItem>
             ))}
-          </div>
+          </StaggeredContainer>
         )}
 
         {/* Empty state */}
@@ -132,7 +137,7 @@ export function Projects() {
         )}
 
         {/* CTA */}
-        <div className="text-center mt-12">
+        <AnimatedSection className="text-center mt-12" delay={0.3}>
           <a
             href="https://github.com/CarlosDniews"
             target="_blank"
@@ -142,7 +147,7 @@ export function Projects() {
             <Github size={18} />
             {t.projectsSection.seeMoreGithub}
           </a>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

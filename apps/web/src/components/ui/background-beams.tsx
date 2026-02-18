@@ -42,6 +42,7 @@ export const BackgroundBeams = React.memo(
           height="100%"
           viewBox="0 0 696 316"
           fill="none"
+          style={{ overflow: 'hidden' }}
         >
           {paths.map((path, index) => (
             <motion.path

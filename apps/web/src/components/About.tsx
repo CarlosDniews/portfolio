@@ -23,7 +23,7 @@ export function About() {
           </p>
           <AnimatedText>
             <h2 className="section-heading">
-              {t.about.headingPrefix}<span className="gradient-text">Carlos Daniel</span>{t.about.headingSuffix}
+              {t.about.headingPrefix}<span className="gradient-text">{t.about.headingGradient}</span>{t.about.headingSuffix}
             </h2>
           </AnimatedText>
         </AnimatedSection>
